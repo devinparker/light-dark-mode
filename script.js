@@ -28,20 +28,32 @@ function lightMode(){
     toggleIcon.children[0].textContent = 'Light Mode';
     toggleIcon.children[1].classList.replace('fa-moon','fa-sun');
     imageMode('light');
-
 }
 
 // Swtich Theme function dynamicall
 function switchTheme(event) {
     if  (event.target.checked){
+        localStorage.setItem('theme', 'dark')
         document.documentElement.setAttribute('data-theme', 'dark');
         darkMode();
     } else {
+        localStorage.setItem('theme', 'light')
         document.documentElement.setAttribute('data-theme', 'light');   
         lightMode();
     }
-    
 }
 
 // Event Listen
 toggleSwitch.addEventListener('change', switchTheme)
+
+// Check Local Storages for Theme
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme){
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+        darkMode();
+    }
+
+}
